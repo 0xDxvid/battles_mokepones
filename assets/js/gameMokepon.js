@@ -33,8 +33,11 @@ let countAttacks = 0;
 let strongAttack;
 let reboot;
 
-
-
+//Map
+let interval;
+let mapBackground = new Image();
+mapBackground.src = 'https://static.platzi.com/media/tmp/class-files/github/curso-programacion-basica/curso-programacion-basica-64-imgs-personajes-fondo/programar/mokepon/assets/mokemap.png';
+let petPlayerObject;
 
 
 // Single source of truth.
@@ -53,7 +56,8 @@ class Mokepon {
     this.height = 80;
     this.mapImage = new Image();
     this.mapImage.src = image;
-
+    this.speedX = 0;
+    this.speedY = 0;
   }
 }
 
@@ -147,9 +151,6 @@ function validateSelection() {
   let showPetAttacks = document.querySelector('.containerBattlePets');
   //Map
   let viewMap = document.querySelector('.view-map');
-  let right = document.querySelector('.right');
-  right.addEventListener('click', movePet);
-
 
   allPets.forEach(function (pet) {
     if (pet.checked) {
@@ -167,35 +168,117 @@ function validateSelection() {
     // replaceSubTitle.innerHTML = "Select your attack:";
     // showPetAttacks.style.display = 'flex';
     // containPets.style.height = '60%';
-
+    startMap();
     playerSelectPet();
   } else {
     alert('Please, Choose your pet');
   }
+
+
 }
 
+function startMap(){
+  //move Mokepon
+  let right = document.querySelector('.right');
+  let down = document.querySelector('.down');
+  let left = document.querySelector('.left');
+  let up = document.querySelector('.up');
 
-function paintPet(){
+  right.addEventListener('mousedown', movePetRight);
+  right.addEventListener('mouseup', stopMove);
+  down.addEventListener('mousedown', movePetDown);
+  down.addEventListener('mouseup', stopMove);
+  left.addEventListener('mousedown', movePetLeft);
+  left.addEventListener('mouseup', stopMove);
+  up.addEventListener('mousedown', movePetUp);
+  up.addEventListener('mouseup', stopMove);
+
+  interval = setInterval(painCanvas, 50);
+  window.addEventListener('keydown', pressKey);
+  window.addEventListener('keyup', stopMove);
+
+  map.width = 800;
+  map.height = 600;
+
+  petPlayerObject = getObjectPet();
+}
+
+function painCanvas(){
   //Map
   let viewMap = document.querySelector('.view-map');
   let map = document.getElementById('map');
   let canvas = map.getContext("2d");
 
+  petPlayerObject.x = petPlayerObject.x + petPlayerObject.speedX;
+  petPlayerObject.y = petPlayerObject.y + petPlayerObject.speedY;
   canvas.clearRect(0, 0, map.width, map.height);
   canvas.drawImage(
-    ratigueya.mapImage,
-    ratigueya.x,
-    ratigueya.y,
-    ratigueya.width,
-    ratigueya.height
+    mapBackground,
+    0,
+    0,
+    map.width,
+    map.height
+  );
+  canvas.drawImage(
+    petPlayerObject.mapImage,
+    petPlayerObject.x,
+    petPlayerObject.y,
+    petPlayerObject.width,
+    petPlayerObject.height
   );
 
 
 }
 
-function movePet(){
-  ratigueya.x = ratigueya.x + 5;
-  paintPet()
+function movePetRight(){
+  petPlayerObject.speedX = 5;
+}
+
+function movePetLeft(){
+  petPlayerObject.speedX = -5;
+}
+
+function movePetDown(){
+  petPlayerObject.speedY = 5;
+}
+
+function movePetUp(){
+  petPlayerObject.speedY = -5;
+}
+
+function stopMove(){
+  petPlayerObject.speedX = 0;
+  petPlayerObject.speedY = 0;
+}
+//la variable reservada event retornan objeto con la información del evento.
+function pressKey(event){
+  switch (event.key) {
+    case 'ArrowUp':
+      movePetUp();
+      break;
+    case 'ArrowDown':
+      movePetDown();
+      break;
+    case 'ArrowLeft':
+      movePetLeft();
+      break;
+    case 'ArrowRight':
+      movePetRight();
+      break;
+    default:
+      console.log('puto')
+      break;
+  }
+}
+
+function getObjectPet(){
+  let namePetSelected = findPetChecked[0];
+  namePetSelected = namePetSelected.charAt(0).toUpperCase() + namePetSelected.slice(1);
+  for (let x = 0; x < mokepones.length; x++) {
+    if (namePetSelected === mokepones[x].name) {
+      return mokepones[x];
+    }
+  }
 }
 
 
