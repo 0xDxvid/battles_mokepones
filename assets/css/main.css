@@ -263,6 +263,7 @@ label input:checked+.radio-btn::before {
   justify-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .containSkillsEnemy {
