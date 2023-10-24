@@ -105,7 +105,7 @@ let tucapalma = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp
 let hipodogeEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp');
 let capipepoEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp');
 let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp');
-let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', '/assets/images/mokepon_langostelvis.webp');
+let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
 let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
 let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
 
