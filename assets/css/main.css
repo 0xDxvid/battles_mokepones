@@ -37,7 +37,7 @@ body {
   align-content: flex-start;
   justify-content: space-evenly;
   align-items: center;
-  gap: 60px 25px;
+  gap: 65px;
   margin-top: 15px;
   backdrop-filter: blur(0px) saturate(200%);
   -webkit-backdrop-filter: blur(0px) saturate(200%);
@@ -447,7 +447,7 @@ label input:checked+.radio-btn::before {
 }
 
 #map {
-  border:1px solid white;
+  border: 1px solid white;
   border-radius: 14px;
   width: -webkit-fill-available;
   height: 40vh;
@@ -457,7 +457,11 @@ label input:checked+.radio-btn::before {
   cursor: pointer;
 }
 
-.up:hover, .right:hover, .down:hover, .left:hover, .center:hover {
+.up:hover,
+.right:hover,
+.down:hover,
+.left:hover,
+.center:hover {
   fill: #FFC857;
 
 }
