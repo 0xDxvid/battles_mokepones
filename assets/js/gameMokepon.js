@@ -48,8 +48,6 @@ if (widthMap > maxWidthMap){
 }
 heightSearch = widthMap * 600 / 800;
 
-
-
 map.width = widthMap;
 map.height = heightSearch;
 
@@ -70,7 +68,6 @@ class Mokepon {
       this.width = 40;
       this.height = 48;
     }
-    console.log(map.width, map.height, this.width, this.height)
     this.x = randomNumber(0, map.width - this.width);
     this.y = randomNumber(0, map.height - this.height);
     this.mapImage = new Image();
@@ -116,14 +113,6 @@ let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma
 hipodoge.attacks = Array(3).fill({ nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' })
   .concat({ nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' })
   .concat({ nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' });
-
-// hipodoge.attacks.push(
-//   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
-//   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
-//   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
-//   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
-//   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' }
-// );
 
 capipepo.attacks.push(
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
@@ -253,21 +242,6 @@ function paintCanvas() {
   //Map
   let map = document.getElementById('map');
   let canvas = map.getContext("2d");
-
-
-   // Verificar los límites del mapa
-   if (this.x < 0) {
-    this.x = 0;
-  }
-  if (this.x > map.width - this.width) {
-    this.x = map.width - this.width;
-  }
-  if (this.y < 0) {
-    this.y = 0;
-  }
-  if (this.y > map.height - this.height) {
-    this.y = map.height - this.height;
-  }
 
   petPlayerObject.x = petPlayerObject.x + petPlayerObject.speedX;
   petPlayerObject.y = petPlayerObject.y + petPlayerObject.speedY;
