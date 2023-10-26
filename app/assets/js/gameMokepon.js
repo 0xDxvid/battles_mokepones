@@ -1,5 +1,6 @@
 // Section choose mokepons
 let mokepones = [];
+let mokeponesEnemys = [];
 let containPets = document.querySelector('.containPets');
 let btnChoosePet = document.querySelector(".btnChoosePet");
 let hiddenSelectionPets;
@@ -51,12 +52,16 @@ heightSearch = widthMap * 600 / 800;
 map.width = widthMap;
 map.height = heightSearch;
 
+let playerId = null;
+let enemyId = null;
+
 // Single source of truth.
 //Class
 class Mokepon {
   //Object's
-  constructor(name, image, typeOfMokepon, photoMap) {
+  constructor(name, image, typeOfMokepon, photoMap, id = null) {
     //Internal variables.
+    this.id = id
     this.name = name;
     this.image = image;
     this.typeOfMokepon = typeOfMokepon;
@@ -102,57 +107,79 @@ let langostelvis = new Mokepon('Langostelvis', './assets/images/mokepon_langoste
 let pydos = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
 let tucapalma = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
 
-let hipodogeEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp');
-let capipepoEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp');
-let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp');
-let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
-let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
-let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
+// let hipodogeEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp');
+// let capipepoEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp');
+// let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp');
+// let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
+// let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
+// let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
+
+const HIPODOGE_ATQ = [
+  { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
+  { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
+  { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
+  { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
+  { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' }
+]
 
 //These inject to attribute {this.attack} directly
-hipodoge.attacks = Array(3).fill({ nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' })
-  .concat({ nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' })
-  .concat({ nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' });
+hipodoge.attacks.push(...HIPODOGE_ATQ);
+// hipodogeEnemy.attacks.push(...HIPODOGE_ATQ);
 
-capipepo.attacks.push(
+const CAPIPEPO_ATQ = [
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' }
-);
+]
 
-ratigueya.attacks.push(
+capipepo.attacks.push(...CAPIPEPO_ATQ);
+// capipepoEnemy.attacks.push(...CAPIPEPO_ATQ);
+
+const RATIGUEYA_ATQ = [
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' }
-);
+]
 
-pydos.attacks.push(
+ratigueya.attacks.push(...RATIGUEYA_ATQ);
+// ratigueyaEnemy.attacks.push(...RATIGUEYA_ATQ);
+
+const PYDOS_ATQ = [
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' }
-);
+]
 
-tucapalma.attacks.push(
+pydos.attacks.push(...PYDOS_ATQ);
+// pydosEnemy.attacks.push(...PYDOS_ATQ);
+
+const TUCAPALMA_ATQ = [
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' }
-);
+]
 
-langostelvis.attacks.push(
+tucapalma.attacks.push(...TUCAPALMA_ATQ);
+// tucapalmaEnemy.attacks.push(...TUCAPALMA_ATQ);
+
+const LANGOSTELVIS_ATQ = [
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🔥', id: 'btnFire', dataAttack: 'Fire' },
   { nameAttack: '🌊', id: 'btnWater', dataAttack: 'Water' },
   { nameAttack: '🌱', id: 'btnLand', dataAttack: 'Land' }
-);
+]
+
+langostelvis.attacks.push(...LANGOSTELVIS_ATQ);
+// langostelvisEnemy.attacks.push(...LANGOSTELVIS_ATQ);
 
 mokepones.push(hipodoge, capipepo, ratigueya, langostelvis, pydos, tucapalma);
 
@@ -176,6 +203,24 @@ function startGame() {
     btnChoosePet.addEventListener('click', validateSelection);
   });
 
+  joinGame();
+
+}
+
+function joinGame(){
+  fetch("http://localhost:8080/join")
+    .then(function (res) {
+
+      if (res.ok) {
+
+        res.text()
+          .then(function (resquest){
+            console.log(resquest)
+            playerId = resquest;
+          })
+
+      }
+    })
 }
 
 function validateSelection() {
@@ -216,12 +261,20 @@ function startMap() {
 
   right.addEventListener('mousedown', movePetRight);
   right.addEventListener('mouseup', stopMove);
+  right.addEventListener('ontouchstart', movePetRight);
+  right.addEventListener('ontouchend', stopMove);
   down.addEventListener('mousedown', movePetDown);
   down.addEventListener('mouseup', stopMove);
+  down.addEventListener('ontouchstart', movePetDown);
+  down.addEventListener('ontouchend', stopMove);
   left.addEventListener('mousedown', movePetLeft);
   left.addEventListener('mouseup', stopMove);
+  left.addEventListener('ontouchstart', movePetLeft);
+  left.addEventListener('ontouchend', stopMove);
   up.addEventListener('mousedown', movePetUp);
   up.addEventListener('mouseup', stopMove);
+  up.addEventListener('ontouchstart', movePetUp);
+  up.addEventListener('ontouchend', stopMove);
 
   interval = setInterval(paintCanvas, 50);
 
@@ -231,8 +284,8 @@ function startMap() {
   // la forma que ne nosotros podemos hacer responsive la imagen es de la siguiente manera:
   // x = VariableWidth x height / width
   // x = withScreen x 600 / 800
-
-
+  namePetSelected = findPetChecked[0];
+  selectedMokepon(namePetSelected);
 
 
   petPlayerObject = getObjectPet();
@@ -256,21 +309,74 @@ function paintCanvas() {
 
   petPlayerObject.paintMokepon();
 
-  hipodogeEnemy.paintMokepon();
-  capipepoEnemy.paintMokepon();
-  ratigueyaEnemy.paintMokepon();
-  langostelvisEnemy.paintMokepon();
-  pydosEnemy.paintMokepon();
-  tucapalmaEnemy.paintMokepon();
+  sendPosition(petPlayerObject.x, petPlayerObject.y)
 
-  if(petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
-    reviewColition(hipodogeEnemy);
-    reviewColition(capipepoEnemy);
-    reviewColition(ratigueyaEnemy);
-    reviewColition(langostelvisEnemy);
-    reviewColition(pydosEnemy);
-    reviewColition(tucapalmaEnemy);
-  }
+  mokeponesEnemys.forEach(function(mokepon){
+    mokepon.paintMokepon();
+    reviewColition(mokepon);
+  })
+  // hipodogeEnemy.paintMokepon();
+  // capipepoEnemy.paintMokepon();
+  // ratigueyaEnemy.paintMokepon();
+  // langostelvisEnemy.paintMokepon();
+  // pydosEnemy.paintMokepon();
+  // tucapalmaEnemy.paintMokepon();
+
+  // if(petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0){
+  //   reviewColition(hipodogeEnemy);
+  //   reviewColition(capipepoEnemy);
+  //   reviewColition(ratigueyaEnemy);
+  //   reviewColition(langostelvisEnemy);
+  //   reviewColition(pydosEnemy);
+  //   reviewColition(tucapalmaEnemy);
+  // }
+}
+
+function sendPosition(x, y){
+  fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+
+    method: "post",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      x,
+      y
+    })
+
+  })
+  .then(function (res){
+    if (res.ok) {
+      res.json()
+        .then(function({enemys}){
+
+          mokeponesEnemys = enemys.map(function(enemy){
+            let mokeponEnemy = null
+            const mokeponName = enemy.mokepon.name || ""
+            if (mokeponName === "hipodoge") {
+              mokeponEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp', enemy.id);
+            } else if (mokeponName === "capipepo") {
+              mokeponEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp', enemy.id);
+            } else if (mokeponName === "ratigueya") {
+              mokeponEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp', enemy.id);
+            }
+            console.log(mokeponEnemy)
+
+            mokeponEnemy.x = enemy.x
+            mokeponEnemy.y = enemy.y
+
+            return mokeponEnemy
+
+          })
+
+
+
+          // let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
+          // let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
+          // let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
+        })
+    }
+  })
 }
 
 function movePetRight() {
@@ -349,6 +455,8 @@ function reviewColition(enemy) {
   }
   stopMove();
   clearInterval(interval);
+
+  enemyId = enemy.id
   replaceSubTitle.innerHTML = "Select your attack:";
   showPetAttacks.style.display = 'flex';
   containPets.style.height = '60%';
@@ -370,6 +478,7 @@ function playerSelectPet(enemy) {
 
   namePetSelected = findPetChecked[0];
   namePetSelected = namePetSelected.charAt(0).toUpperCase() + namePetSelected.slice(1);// I think it's not necessary
+
 
   for (let x = 0; x < mokepones.length; x++) {
     if (namePetSelected === mokepones[x].name) {
@@ -411,6 +520,18 @@ function playerSelectPet(enemy) {
 
   showAttacks(allAttacksPlayerPet);
 
+}
+
+function selectedMokepon(namePetSelected){
+  fetch(`http://localhost:8080/mokepon/${playerId}`, {
+    method: "post",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      mokepon: namePetSelected
+    })
+  })
 }
 
 function showAttacks(allAttacksPlayerPet) {
@@ -479,11 +600,44 @@ function sequenceOfAttacks() {
         totalAttacks.pop()
         button.disabled = true;
       }
-      randomEnemyAttack();
+      // randomEnemyAttack();
+      if (attackedPlayer.length === 5) {
+        sendAttacks();
+      }
+
     })
   });
 
 
+}
+
+function sendAttacks(){
+  fetch(`http://localhost:8080/mokepon/${playerId}/attacks`, {
+    method: "post",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+        attacks: attackedPlayer
+    })
+  })
+
+  interval = setInterval(getAttacks, 50)
+}
+
+function getAttacks() {
+  fetch(`http://localhost:8080/mokepon/${enemyId}/attacks`)
+    .then(function(res){
+      if (res.ok) {
+        res.json()
+          .then(function ({ attacks }){
+            if (attacks.length === 5) {
+              attackedEnemy = attacks
+              playGame();
+            }
+          })
+      }
+    })
 }
 
 //  Validate Name pet in Class and return attacks
@@ -503,6 +657,10 @@ function randomEnemyAttack() {
 
 //Why the variables not working in global scope?
 function playGame() {
+
+  clearInterval(interval)
+
+
   let victoryPlayerInsert = document.querySelector('.victoriesPlayer');
   let victoryEnemyInsert = document.querySelector('.victoriesEnemy');
 
