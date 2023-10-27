@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/David-Monsalvo/battles_mokepones.git"
+    "url": "git+git@github.com:David-Monsalvo/battles_mokepones.git"
   },
   "keywords": [
     "html",
@@ -17,7 +17,7 @@
     "node",
     "npm"
   ],
-  "author": "Dxvid",
+  "author": "David-Monsalvo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/David-Monsalvo/battles_mokepones/issues"
