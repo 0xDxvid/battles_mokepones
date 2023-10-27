@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;900&display=swap');
+@font-face {
+  font-family:"Exo 2";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src:
+  url("../fonts/exo2-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Exo 2";
+  font-display: swap;
+  font-weight: 900;
+  src: url("../fonts/exo2-black.woff") format("woff");
+}
 
 * {
   margin: 0px;
@@ -9,8 +23,6 @@ body {
   font-family: 'Exo 2', sans-serif;
   box-sizing: border-box;
 }
-
-
 
 .title {
   text-align: center;
@@ -55,7 +67,7 @@ body {
 
 .card-locale:hover,
 .card-online:hover {
-  background-color: #83beda;
+  background-color: rgb(131 190 218 / 50%);
 }
 
 .card-locale>img,
