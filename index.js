@@ -3,7 +3,7 @@ const cors = require("cors");
 
 const app = express(); //Creamos una aplicación con Express JS
 
-app.use(express.static('app'));
+app.use(express.static('src'));
 app.use(cors());
 app.use(express.json());
 
@@ -103,7 +103,7 @@ app.get("/mokepon/:playerId/attacks", (req, res) => {
 
 // Escuche continuamente en el puerto 8080, las solicitudes de los clientes.
 app.listen(8080, () => {
-    console.log('Service UP');
+    console.log('Server Run');
 } );
 
 //verbos Http o Métodos HTTP, son 11 principales métodos estandares que se utilizan en la web, pero se pueden realizarn métodos personalizados.
