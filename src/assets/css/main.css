@@ -29,10 +29,30 @@ body {
   font-family: 'Exo 2', sans-serif;
   font-size: clamp(3.4375rem, 2.25rem + 5.9375vw, 9.375rem);
   font-weight: 900;
-  line-height: 130%;
+  line-height: 110%;
   color: #ffffff;
-  opacity: 0.5;
   user-select: none;
+}
+
+.random-quotes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(1.125rem, 1.0375rem + 0.4375vw, 1.5625rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #ffff00;
+  animation: random-quotes .75s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+
+}
+
+.quote-strong {
+  color: #fff;
 }
 
 .sub-title {
@@ -40,6 +60,7 @@ body {
   font-family: 'Exo 2', sans-serif;
   font-size: clamp(1.875rem, 1.5625rem + 1.5625vw, 3.4375rem);
   line-height: 120%;
+  padding-top: 15px;
   user-select: none;
   color: #ffffff;
 }
@@ -630,7 +651,6 @@ label input:checked+.radio-btn::before {
   background: linear-gradient(180deg, #FFC857, #E9724C, #C5283D, #481D24);
   background-size: 200% 200%;
   animation: gradient 13s ease infinite;
-
 }
 
 .circles li {
@@ -837,6 +857,17 @@ label input:checked+.radio-btn::before {
     background-position: 0% 100%;
   }
 }
+
+@-webkit-keyframes random-quotes {
+  0% {transform: scale(0.875)}
+  100% {transform: scale(1)}
+}
+
+@keyframes random-quotes {
+  0% {transform: scale(0.875)}
+  100% {transform: scale(1)}
+}
+
 
 @-webkit-keyframes clippath {
 
