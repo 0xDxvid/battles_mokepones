@@ -1,10 +1,10 @@
 @font-face {
-  font-family:"Exo 2";
+  font-family: "Exo 2";
   font-display: swap;
   font-style: normal;
   font-weight: 400;
   src:
-  url("../fonts/exo2-regular.woff") format("woff");
+    url("../fonts/exo2-regular.woff") format("woff");
 }
 
 @font-face {
@@ -17,11 +17,15 @@
 * {
   margin: 0px;
   padding: 0px;
-}
-
-body {
   font-family: 'Exo 2', sans-serif;
   box-sizing: border-box;
+}
+
+#selectPets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
@@ -29,7 +33,7 @@ body {
   font-family: 'Exo 2', sans-serif;
   font-size: clamp(3.4375rem, 2.25rem + 5.9375vw, 9.375rem);
   font-weight: 900;
-  line-height: 110%;
+  line-height: 130%;
   color: #ffffff;
   user-select: none;
 }
@@ -74,7 +78,7 @@ body {
   padding: 45px 0px;
 }
 
-.card-locale,
+.card-offline,
 .card-online {
   position: relative;
   border-radius: 22px;
@@ -86,25 +90,25 @@ body {
   margin: 0px 10px;
 }
 
-.card-locale:hover,
+.card-offline:hover,
 .card-online:hover {
   background-color: rgb(131 190 218 / 50%);
 }
 
 
-.card-locale>img,
+.card-offline>img,
 .card-online>img {
   width: 100%;
   border-radius: 22px;
 }
 
-input[name*="selected-mode"]:checked + img {
+input[name*="selected-mode"]:checked+img {
   background-color: rgb(131, 190, 218);
 }
 
 
-.card-locale::before,
-.card-locale::after,
+.card-offline::before,
+.card-offline::after,
 .card-online::before,
 .card-online::after {
   content: "";
@@ -120,7 +124,7 @@ input[name*="selected-mode"]:checked + img {
   border-radius: 22px;
 }
 
-.card-locale::after,
+.card-offline::after,
 .card-online::after {
   position: absolute;
   -webkit-animation: clippath 6s infinite -3s linear;
@@ -128,7 +132,7 @@ input[name*="selected-mode"]:checked + img {
 }
 
 .containPets {
-  display: flex;
+  display: none;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -197,7 +201,6 @@ input[name*="selected-mode"]:checked + img {
   visibility: visible;
 }
 
-
 .containPets::-webkit-scrollbar {
   width: 5px;
 }
@@ -214,8 +217,6 @@ input[name*="selected-mode"]:checked + img {
 .containPets::-webkit-scrollbar-track {
   background-color: none;
 }
-
-
 
 input {
   display: none;
@@ -253,7 +254,6 @@ label p {
   position: relative;
   box-sizing: border-box;
 }
-
 
 .radio-btn::before {
   content: '✔';
@@ -329,7 +329,7 @@ label[class*="fire"] input:checked+.radio-btn {
   background-color: rgb(244 121 48 / 45%);
 }
 
-label input:checked+.radio-btn::before {
+label input:checked + .radio-btn::before {
   opacity: 1;
   transform: translateX(-50%) scale(1);
 }
@@ -346,6 +346,27 @@ label input:checked+.radio-btn::before {
   gap: 1rem;
   flex-wrap: nowrap;
   user-select: none;
+}
+
+.btnChoosePet {
+  display: none;
+  margin: 50px 0px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  border-radius: 21px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 18px;
+  line-height: 1.1;
+  font-weight: 900;
+  color: #ffffff;
+
+}
+
+.btnChoosePet:hover {
+  background-color: #ffffff;
+  color: rgba(197 40 61 / 60%);
 }
 
 .characterPet img {
@@ -502,35 +523,6 @@ label input:checked+.radio-btn::before {
 
 }
 
-
-.btnChoosePet {
-  margin: 50px 0px;
-  padding: 10px 20px;
-  background-color: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  cursor: pointer;
-  border-radius: 21px;
-  font-family: 'Exo 2', sans-serif;
-  font-size: 18px;
-  line-height: 1.1;
-  font-weight: 900;
-  color: #ffffff;
-
-}
-
-.btnChoosePet:hover {
-  background-color: #ffffff;
-  color: rgba(197 40 61 / 60%);
-}
-
-
-#selectPets {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-}
 
 .view-map {
   display: none;
@@ -859,13 +851,23 @@ label input:checked+.radio-btn::before {
 }
 
 @-webkit-keyframes random-quotes {
-  0% {transform: scale(0.875)}
-  100% {transform: scale(1)}
+  0% {
+    transform: scale(0.875)
+  }
+
+  100% {
+    transform: scale(1)
+  }
 }
 
 @keyframes random-quotes {
-  0% {transform: scale(0.875)}
-  100% {transform: scale(1)}
+  0% {
+    transform: scale(0.875)
+  }
+
+  100% {
+    transform: scale(1)
+  }
 }
 
 

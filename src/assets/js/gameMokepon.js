@@ -1,13 +1,19 @@
 //Section select game mode
 let quote = document.querySelector('.random-quotes');
+let containCards = document.querySelectorAll('.contain-cards, .random-quotes'); //Display NONE
+let selectedOffline = document.getElementById('offline');
+let selectedOnline = document.getElementById('online');
+
+
 
 // Section choose mokepons
-let mokepones = [];
-let mokeponesEnemys = [];
 let containPets = document.querySelector('.containPets');
 let btnChoosePet = document.querySelector(".btnChoosePet");
+let mokepones = [];
+let mokeponesEnemys = [];
 let hiddenSelectionPets;
-let replaceSubTitle = document.querySelector('.sub-title');// These change for the maps
+let replaceSubTitle = document.querySelector('.sub-title');
+
 
 //Section Battle mokepons
 let allPets = document.getElementsByName('pet');
@@ -47,7 +53,7 @@ let heightSearch;
 let widthMap = containPets.offsetWidth - 8;
 const maxWidthMap = 800;
 
-if (widthMap > maxWidthMap){
+if (widthMap > maxWidthMap) {
   widthMap = maxWidthMap - 8;
 }
 heightSearch = widthMap * 600 / 800;
@@ -57,37 +63,6 @@ map.height = heightSearch;
 
 let playerId = null;
 let enemyId = null;
-
-
-
-
-function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
-
-//Random quotes
-function randomQuotes() {
-  let quotesContain = [
-    'Mi animal interior es la <strong class="quote-strong">&nbsp;Ratigueya&nbsp;</strong> &#129304;',
-    'Hecho con amor por un backend <strong class="quote-strong">&nbsp;.container { center: please; }</strong>',
-    'Ningún mokepon salió herido durante la batalla',
-    'Sobreviviente de la clase Número <strong class="quote-strong">&nbsp;58&nbsp;</strong> del curso de Programación Básica',
-    'Orgullosamente hecho en PHP 6 🐘 ( ͡° ͜ʖ ͡°)',
-    'Me gustaría ser el CSS de tu HTML, pero no consigo salir de vim &#128565;&#8205;&#128171;',
-    'Este es mi secreto, siempre programo cansado',
-    "Todos sus &lt;div&gt; están perfectamente centrados",
-    'Better viewed on Internet Explorer 9 &#128527;',
-    'Sitio alojado en los servidores de Omicron Persei 8',
-    'Nada puede malirsal',
-    'En localhost funcionaba...',
-    'Este sitio está patrocinado por: jQuery64'
-  ];
-
-  let randomNum = randomNumber(0, quotesContain.length);
-  quote.innerHTML = quotesContain[randomNum];
-}
-
 
 
 // Single source of truth.
@@ -218,8 +193,59 @@ langostelvis.attacks.push(...LANGOSTELVIS_ATQ);
 
 mokepones.push(hipodoge, capipepo, ratigueya, langostelvis, pydos, tucapalma);
 
+
+//Selected Game Mode
+document.querySelector('.contain-cards').addEventListener('click', (event) => {
+
+  if(event.target === selectedOffline || event.target === selectedOnline){
+    if(selectedOffline.checked){
+      startGame();
+    } else if (selectedOnline.checked){
+      alert('Coming Soon 🫠')
+    }
+  }
+
+});
+
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+//Random quotes
+function randomQuotes() {
+  let quotesContain = [
+    'Mi animal interior es la <strong class="quote-strong">&nbsp;Ratigueya&nbsp;</strong> &#129304;',
+    'Hecho con amor por un backend <strong class="quote-strong">&nbsp;.container { center: please; }</strong>',
+    'Ningún mokepon salió herido durante la batalla',
+    'Sobreviviente de la clase Número <strong class="quote-strong">&nbsp;58&nbsp;</strong> del curso de Programación Básica',
+    'Orgullosamente hecho en PHP 6 🐘 ( ͡° ͜ʖ ͡°)',
+    'Me gustaría ser el CSS de tu HTML, pero no consigo salir de vim &#128565;&#8205;&#128171;',
+    'Este es mi secreto, siempre programo cansado',
+    "Todos sus &lt;div&gt; están perfectamente centrados",
+    'Better viewed on Internet Explorer 9 &#128527;',
+    'Sitio alojado en los servidores de Omicron Persei 8',
+    'Nada puede malirsal',
+    'En localhost funcionaba...',
+    'Este sitio está patrocinado por: jQuery64',
+    'Esto no es Pokémon'
+  ];
+
+  let randomNum = randomNumber(0, quotesContain.length);
+  quote.innerHTML = quotesContain[randomNum];
+}
+
 //Choose Mokepons.
 function startGame() {
+
+  containPets.style.display = "flex";
+  btnChoosePet.style.display = "flex";
+  replaceSubTitle.innerHTML = "Chose your pet:"
+
+  containCards.forEach((card) => {
+    card.style.display = "none";
+  });
+
 
   mokepones.forEach((mokepon) => {
     //Literary Templates.
@@ -242,14 +268,12 @@ function startGame() {
 
 }
 
-function joinGame(){
+function joinGame() {
   fetch("http://localhost:8080/join")
     .then(function (res) {
-
       if (res.ok) {
-
         res.text()
-          .then(function (resquest){
+          .then(function (resquest) {
             console.log(resquest)
             playerId = resquest;
           })
@@ -346,7 +370,7 @@ function paintCanvas() {
 
   sendPosition(petPlayerObject.x, petPlayerObject.y)
 
-  mokeponesEnemys.forEach(function(mokepon){
+  mokeponesEnemys.forEach(function (mokepon) {
     mokepon.paintMokepon();
     reviewColition(mokepon);
   })
@@ -367,12 +391,12 @@ function paintCanvas() {
   // }
 }
 
-function sendPosition(x, y){
+function sendPosition(x, y) {
   fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
 
     method: "post",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       x,
@@ -380,38 +404,38 @@ function sendPosition(x, y){
     })
 
   })
-  .then(function (res){
-    if (res.ok) {
-      res.json()
-        .then(function({enemys}){
+    .then(function (res) {
+      if (res.ok) {
+        res.json()
+          .then(function ({ enemys }) {
 
-          mokeponesEnemys = enemys.map(function(enemy){
-            let mokeponEnemy = null
-            const mokeponName = enemy.mokepon.name || ""
-            if (mokeponName === "hipodoge") {
-              mokeponEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp', enemy.id);
-            } else if (mokeponName === "capipepo") {
-              mokeponEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp', enemy.id);
-            } else if (mokeponName === "ratigueya") {
-              mokeponEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp', enemy.id);
-            }
-            console.log(mokeponEnemy)
+            mokeponesEnemys = enemys.map(function (enemy) {
+              let mokeponEnemy = null
+              const mokeponName = enemy.mokepon.name || ""
+              if (mokeponName === "hipodoge") {
+                mokeponEnemy = new Mokepon('Hipodoge', './assets/images/mokepon_hipodoge.webp', 'water', './assets/images/mini_hipodoge.webp', enemy.id);
+              } else if (mokeponName === "capipepo") {
+                mokeponEnemy = new Mokepon('Capipepo', './assets/images/mokepon_capipepo.webp', 'land', './assets/images/mini_capipepo.webp', enemy.id);
+              } else if (mokeponName === "ratigueya") {
+                mokeponEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp', enemy.id);
+              }
+              console.log(mokeponEnemy)
 
-            mokeponEnemy.x = enemy.x
-            mokeponEnemy.y = enemy.y
+              mokeponEnemy.x = enemy.x
+              mokeponEnemy.y = enemy.y
 
-            return mokeponEnemy
+              return mokeponEnemy
 
+            })
+
+
+
+            // let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
+            // let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
+            // let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
           })
-
-
-
-          // let langostelvisEnemy = new Mokepon('Langostelvis', './assets/images/mokepon_langostelvis.webp', 'fire', './assets/images/mokepon_langostelvis.webp');
-          // let pydosEnemy = new Mokepon('Pydos', './assets/images/mokepon_pydos.webp', 'water', './assets/images/mokepon_pydos.webp');
-          // let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/images/mokepon_tucapalma.webp', 'land', './assets/images/mokepon_tucapalma.webp');
-        })
-    }
-  })
+      }
+    })
 }
 
 function movePetRight() {
@@ -557,11 +581,11 @@ function playerSelectPet(enemy) {
 
 }
 
-function selectedMokepon(namePetSelected){
+function selectedMokepon(namePetSelected) {
   fetch(`http://localhost:8080/mokepon/${playerId}`, {
     method: "post",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       mokepon: namePetSelected
@@ -646,14 +670,14 @@ function sequenceOfAttacks() {
 
 }
 
-function sendAttacks(){
+function sendAttacks() {
   fetch(`http://localhost:8080/mokepon/${playerId}/attacks`, {
     method: "post",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        attacks: attackedPlayer
+      attacks: attackedPlayer
     })
   })
 
@@ -662,10 +686,10 @@ function sendAttacks(){
 
 function getAttacks() {
   fetch(`http://localhost:8080/mokepon/${enemyId}/attacks`)
-    .then(function(res){
+    .then(function (res) {
       if (res.ok) {
         res.json()
-          .then(function ({ attacks }){
+          .then(function ({ attacks }) {
             if (attacks.length === 5) {
               attackedEnemy = attacks
               playGame();
@@ -782,8 +806,6 @@ function validateVictorys() {
 function rebootGame() {
   location.reload();
 }
-
-
 
 window.addEventListener('load', () => {
   randomQuotes();
