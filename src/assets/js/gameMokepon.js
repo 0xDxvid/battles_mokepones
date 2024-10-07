@@ -216,19 +216,17 @@ function randomNumber(min, max) {
 function randomQuotes() {
   let quotesContain = [
     'Mi animal interior es la <strong class="quote-strong">&nbsp;Ratigueya&nbsp;</strong> &#129304;',
-    'Hecho con amor por un backend <strong class="quote-strong">&nbsp;.container { center: please; }</strong>',
     'Ningún mokepon salió herido durante la batalla',
     'Sobreviviente de la clase Número <strong class="quote-strong">&nbsp;58&nbsp;</strong> del curso de Programación Básica',
     'Orgullosamente hecho en PHP 6 🐘 ( ͡° ͜ʖ ͡°)',
     'Me gustaría ser el CSS de tu HTML, pero no consigo salir de vim &#128565;&#8205;&#128171;',
     'Este es mi secreto, siempre programo cansado',
-    "Todos sus &lt;div&gt; están perfectamente centrados",
     'Better viewed on Internet Explorer 9 &#128527;',
     'Sitio alojado en los servidores de Omicron Persei 8',
     'Nada puede malirsal',
     'En localhost funcionaba...',
     'Este sitio está patrocinado por: jQuery64',
-    'Esto no es Pokémon'
+    'Esto no es Pokémon ( ͡~ ͜ʖ ͡°)'
   ];
 
   let randomNum = randomNumber(0, quotesContain.length);
