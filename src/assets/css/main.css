@@ -19,6 +19,13 @@
   padding: 0px;
   font-family: 'Exo 2', sans-serif;
   box-sizing: border-box;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 #selectPets {
@@ -64,7 +71,6 @@
   font-family: 'Exo 2', sans-serif;
   font-size: clamp(1.875rem, 1.5625rem + 1.5625vw, 3.4375rem);
   line-height: 120%;
-  padding-top: 15px;
   user-select: none;
   color: #ffffff;
 }
@@ -329,7 +335,7 @@ label[class*="fire"] input:checked+.radio-btn {
   background-color: rgb(244 121 48 / 45%);
 }
 
-label input:checked + .radio-btn::before {
+label input:checked+.radio-btn::before {
   opacity: 1;
   transform: translateX(-50%) scale(1);
 }
@@ -416,14 +422,17 @@ label input:checked + .radio-btn::before {
 
 .water {
   color: #83beda;
+  fill: #83beda;
 }
 
 .land {
   color: #99c35f;
+  fill: #99c35f;
 }
 
 .fire {
   color: #f47930;
+  fill: #f47930
 }
 
 .containerBattlePets {
@@ -528,18 +537,19 @@ label input:checked + .radio-btn::before {
   display: none;
   width: -webkit-fill-available;
   height: -webkit-fill-available;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: nowrap;
-  row-gap: 10px;
+  gap: 7%;
 }
 
 #map {
   border: 1px solid white;
   border-radius: 14px;
-  width: -webkit-fill-available;
-  height: 40vh;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
 }
 
 .joystick {
@@ -752,10 +762,17 @@ label input:checked + .radio-btn::before {
 
 @media screen and (max-width: 575px) {
   .containPets {
-    width: 90%;
-    gap: 35px;
-    padding: 65px 10px;
-    height: 71vh;
+    width: 95%;
+  }
+
+  .view-map {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .joystick {
+    width: 100%;
+    height: 285px;
   }
 
   .radio-btn {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="theme-color" content="#E9724C">
@@ -13,7 +14,7 @@
 
 <body>
   <section id="selectPets">
-    <h1 class="title">¡Mokepon! <br/><span class="random-quotes">&nbsp;</span></h1>
+    <h1 class="title">¡Mokepon! <br /><span class="random-quotes">&nbsp;</span></h1>
     <h2 class="sub-title">Select game mode:</h2>
 
     <div class="contain-cards">
@@ -41,8 +42,19 @@
         <canvas id="map"></canvas>
 
         <svg class="joystick" width="200" height="200" viewBox="0 0 200 200" fill="none"
-          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g clip-path="url(#clip0_1_12)">
+          xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="clip0">
+              <rect width="200" height="200" rx="100" />
+            </clipPath>
+            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+              <use href="#img1" transform="matrix(0.00195312 0 0 0.00222168 0 -0.0698607)" />
+            </pattern>
+            <image id="img1" width="512" height="513" href="./assets/images/mokepon_ratigueya.webp" />
+          </defs>
+
+          <g clip-path="url(#clip0)">
+
             <path d="M112 26L101.591 15.591C100.712 14.7123 99.2877 14.7123 98.409 15.591L88 26" stroke="#EB5757"
               stroke-linecap="round" stroke-linejoin="round" />
             <path d="M88 174L98.409 184.409C99.2877 185.288 100.712 185.288 101.591 184.409L112 174" stroke="#EB5757"
@@ -51,24 +63,18 @@
               stroke-linecap="round" stroke-linejoin="round" />
             <path d="M26 88L15.591 98.409C14.7123 99.2877 14.7123 100.712 15.591 101.591L26 112" stroke="#EB5757"
               stroke-linecap="round" stroke-linejoin="round" />
+
             <path class="up" d="M200 -5L150 45H50L0 -5H200Z" fill="white" fill-opacity="0.5" />
             <path class="left" d="M45 50V150L-5 200V0L45 50Z" fill="white" fill-opacity="0.5" />
             <path class="right" d="M205 0V200L155 150V50L205 0Z" fill="white" fill-opacity="0.5" />
             <path class="down" d="M200 205H0L50 155H150L200 205Z" fill="white" fill-opacity="0.5" />
+
             <path class="center"
               d="M132 58H67C61.4772 58 57 62.4772 57 68V133C57 138.523 61.4772 143 67 143H132C137.523 143 142 138.523 142 133V68C142 62.4772 137.523 58 132 58Z"
               fill="white" fill-opacity="0.5" />
+
             <rect class="btnCenter" x="62" y="67" width="75" height="65.9341" fill="url(#pattern0)" />
           </g>
-          <defs>
-            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-              <use xlink:href="#image0_1_12" transform="matrix(0.00195312 0 0 0.00222168 0 -0.0698607)" />
-            </pattern>
-            <clipPath id="clip0_1_12">
-              <rect width="200" height="200" rx="100" fill="white" />
-            </clipPath>
-            <image id="image0_1_12" width="512" height="513" xlink:href="./assets/images/mokepon_ratigueya.webp" />
-          </defs>
         </svg>
 
       </div>
@@ -128,4 +134,5 @@
 
   <script src="./assets/js/gameMokepon.js"></script>
 </body>
+
 </html>

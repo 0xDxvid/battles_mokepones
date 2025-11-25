@@ -43,24 +43,14 @@ let countAttacks = 0;
 let strongAttack;
 let reboot;
 
-//Map
+//Map default settings
 let interval;
 let mapBackground = new Image();
 mapBackground.src = './assets/images/mokemap.webp';
 let petPlayerObject;
-
-let heightSearch;
-let widthMap = containPets.offsetWidth - 8;
 const maxWidthMap = 800;
-
-if (widthMap > maxWidthMap) {
-  widthMap = maxWidthMap - 8;
-}
-heightSearch = widthMap * 600 / 800;
-
-map.width = widthMap;
-map.height = heightSearch;
-
+let widthMap;
+let heightSearch;
 let playerId = null;
 let enemyId = null;
 
@@ -197,10 +187,10 @@ mokepones.push(hipodoge, capipepo, ratigueya, langostelvis, pydos, tucapalma);
 //Selected Game Mode
 document.querySelector('.contain-cards').addEventListener('click', (event) => {
 
-  if(event.target === selectedOffline || event.target === selectedOnline){
-    if(selectedOffline.checked){
+  if (event.target === selectedOffline || event.target === selectedOnline) {
+    if (selectedOffline.checked) {
       startGame();
-    } else if (selectedOnline.checked){
+    } else if (selectedOnline.checked) {
       alert('Coming Soon 🫠')
     }
   }
@@ -238,7 +228,7 @@ function startGame() {
 
   containPets.style.display = "flex";
   btnChoosePet.style.display = "flex";
-  replaceSubTitle.innerHTML = "Chose your pet:"
+  replaceSubTitle.innerHTML = "Chose your pet:";
 
   containCards.forEach((card) => {
     card.style.display = "none";
@@ -263,7 +253,6 @@ function startGame() {
   });
 
   joinGame();
-
 }
 
 function joinGame() {
@@ -298,15 +287,33 @@ function validateSelection() {
     });
     replaceSubTitle.innerHTML = "Search for your opponent:";
     viewMap.style.display = 'flex';
-    containPets.style.height = '65vh';
-    containPets.style.padding = '8px 8px 15px'
+    containPets.style.height = 'auto';
+    containPets.style.padding = '10px';
+
+
+
+    widthMap = containPets.offsetWidth;
+
+    if (widthMap > maxWidthMap) {
+      widthMap = maxWidthMap;
+    }
+    heightSearch = widthMap * 600 / 800;
+
+    let map = document.getElementById('map');
+    map.width = widthMap;
+    map.height = heightSearch;
+
+    let petObject = getObjectPet();
+    console.log(petObject.typeOfMokepon);
+    let joyStickCenterImage = document.getElementById('img1');
+    joyStickCenterImage.setAttribute('href', petObject.image);
+
+    [...document.querySelectorAll('.up, .down, .left, .right')].forEach(element => element.classList.add(petObject.typeOfMokepon));
 
     startMap();
   } else {
     alert('Please, Choose your pet');
   }
-
-
 }
 
 function startMap() {
@@ -417,7 +424,6 @@ function sendPosition(x, y) {
               } else if (mokeponName === "ratigueya") {
                 mokeponEnemy = new Mokepon('Ratigueya', './assets/images/mokepon_ratigueya.webp', 'fire', './assets/images/mini_ratigueya.webp', enemy.id);
               }
-              console.log(mokeponEnemy)
 
               mokeponEnemy.x = enemy.x
               mokeponEnemy.y = enemy.y
